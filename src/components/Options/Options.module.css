@@ -1,0 +1,15 @@
+.container{
+    margin-top: 20px;   
+}
+
+.reset{    
+    width: 100px;
+    height: 40px;
+            
+    text-transform: capitalize;
+    font-size: 20px;
+}
+
+.reset:hover{
+    color: red;
+}
