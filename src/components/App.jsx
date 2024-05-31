@@ -14,28 +14,23 @@ const createInitialStorage = () => {
 function App() {
   
   const [values, setValues] = useState(createInitialStorage); 
+  const totalFeedback = values.good + values.neutral + values.bad;
+  const positive = Math.round((values.good / totalFeedback) * 100);
   
   useEffect(() => {
-    // тут умова для заливу на локалку
     const valuesParse = JSON.stringify(values);
     localStorage.setItem("valuesParse", valuesParse)
 }, [values])
 
-  const totalFeedback = values.good + values.neutral + values.bad;
-  const positive = Math.round((values.good / totalFeedback) * 100);
-
   const updateFeedback = (feedbackType) => {
-    setValues({
+    setValues((values) => ({
       ...values,
-      good: (feedbackType === "good") ? (values.good + 1) : values.good,
-      neutral: (feedbackType === "neutral") ? (values.neutral + 1) : values.neutral,
-      bad: (feedbackType === "bad") ? (values.bad + 1) : values.bad,
-       })
+      [feedbackType]: values[feedbackType] + 1
+    }));
   }
 
   const resetFeedback = () => { 
     setValues({
-      ...values,
       good: 0,
       neutral: 0,
       bad: 0,
