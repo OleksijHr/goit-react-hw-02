@@ -15,7 +15,7 @@ function App() {
   
   const [values, setValues] = useState(createInitialStorage); 
   const totalFeedback = values.good + values.neutral + values.bad;
-  const positive = Math.round((values.good / totalFeedback) * 100);
+  const positive = totalFeedback ? (Math.round((values.good / totalFeedback) * 100)) : 0;
   
   useEffect(() => {
     const valuesParse = JSON.stringify(values);
@@ -39,7 +39,8 @@ function App() {
     return (
       <>
       <Description />
-        {!totalFeedback ? <Options type={updateFeedback}/> : <Options totalFeedback={totalFeedback} type={updateFeedback} reset={ resetFeedback } />}
+        {!totalFeedback ? <Options onFeedbackSelect={updateFeedback} /> :
+          <Options totalFeedback={totalFeedback} onFeedbackSelect={updateFeedback} reset={resetFeedback} />}
         {!totalFeedback ? <Notification /> : <Feedback values={values} totalFeedback={totalFeedback} positive={ positive }/>}
     </>
   )

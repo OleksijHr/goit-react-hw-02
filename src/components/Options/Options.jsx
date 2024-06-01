@@ -1,11 +1,11 @@
 import ButtonComponent from "../ButtonComponent/ButtonComponent"
 import css from "./Options.module.css";
 
-const Options = ({ totalFeedback, type, reset }) => {
+const Options = ({ totalFeedback, onFeedbackSelect, reset }) => {
     return <div className={css.container}>     
-            <ButtonComponent onFeedbackSelect={type} name={ "good" }/>
-            <ButtonComponent onFeedbackSelect={type} name={"neutral"}/>
-            <ButtonComponent onFeedbackSelect={type} name={"bad"}/>
+            <ButtonComponent type={() => onFeedbackSelect("good")} name={ "good" }/>
+            <ButtonComponent type={() => onFeedbackSelect("neutral")} name={"neutral"}/>
+            <ButtonComponent type={() => onFeedbackSelect("bad")} name={"bad"}/>
         {totalFeedback ? <button onClick={reset} className={css.reset}>Reset</button> : null}
     </div>
 }
